@@ -124,9 +124,6 @@ const SearchResults: React.FC = () => {
         case 'WebPages':
           dataExists = (results?.webPages?.value?.length ?? 0) > 0;
           break;
-        case 'RelatedSearches':
-          dataExists = (results?.relatedSearches?.value?.length ?? 0) > 0;
-          break;
         case 'Videos':
           dataExists = (results?.videos?.value?.length ?? 0) > 0;
           break;
@@ -157,18 +154,41 @@ const SearchResults: React.FC = () => {
     }
     switch (activeTab) {
       case Tab.WebPages:
-        return results?.webPages?.value.map((page, index) => (
+        // Ensure webPageElements is always an array by providing a default empty array
+        const webPageElements: React.JSX.Element[] = results?.webPages?.value.map((page, index) => (
           <div key={`webpage-${index}`} className='flex flex-col gap-2 md:w-[806px]'>
             <a href={page.url} className='text-cyan-300'><strong>{page.name}</strong></a>
             <p>{page.snippet}</p>
           </div>
-        ));
-      case Tab.RelatedSearches:
-        return results?.relatedSearches?.value.map((search, index) => (
-          <div key={`related-${index}`}>
-            <a href={search.webSearchUrl}>{search.text}</a>
-          </div>
-        ));
+        )) || []; // Default to an empty array if results?.webPages?.value is undefined
+    
+        // Now, webPageElements is guaranteed to be an array, but it could be empty.
+        // Check if there are related searches and if there are more than two web pages.
+        if (results?.relatedSearches?.value.length && webPageElements.length > 2) {
+          const relatedSearchElements = results.relatedSearches.value.map((search, index) => (
+            <div key={`related-${index}`} className="flex flex-col gap-2 md:w-[806px]">
+              <a href={search.webSearchUrl} className='text-cyan-300 hover:bg-cyan-900 w-[40%] rounded-xl transition-all duration-200 px-4 py-1'>{search.text}</a>
+            </div>
+          ));
+    
+          // Insert the related search elements after the second web page element.
+          // No need to use optional chaining on webPageElements.splice since webPageElements is guaranteed to be an array here.
+          webPageElements.splice(2, 0, 
+            <div key="related-searches-section" className="related-searches-block">
+              <div className='border-t-[1px] border-dark-border w-full'/>
+              <div className='py-4'>
+                <h3 className="text-xl font-bold mb-2">People also search for:</h3>
+                <div>
+                  {relatedSearchElements}
+                </div>
+              </div>
+              <div className='border-t-[1px] border-dark-border w-full'/>
+            </div>
+          );
+        }
+    
+        return webPageElements;
+
       case Tab.Videos:
           return results?.videos?.value.map((video, index) => (
             <div key={`video-${index}`} className="flex flex-col items-center gap-2 max-w-[80%]">
