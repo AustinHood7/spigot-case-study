@@ -154,16 +154,13 @@ const SearchResults: React.FC = () => {
     }
     switch (activeTab) {
       case Tab.WebPages:
-        // Ensure webPageElements is always an array by providing a default empty array
         const webPageElements: React.JSX.Element[] = results?.webPages?.value.map((page, index) => (
           <div key={`webpage-${index}`} className='flex flex-col gap-2 md:w-[806px]'>
             <a href={page.url} className='text-cyan-300'><strong>{page.name}</strong></a>
             <p>{page.snippet}</p>
           </div>
-        )) || []; // Default to an empty array if results?.webPages?.value is undefined
+        )) || []; 
     
-        // Now, webPageElements is guaranteed to be an array, but it could be empty.
-        // Check if there are related searches and if there are more than two web pages.
         if (results?.relatedSearches?.value.length && webPageElements.length > 2) {
           const relatedSearchElements = results.relatedSearches.value.map((search, index) => (
             <div key={`related-${index}`} className="flex flex-col gap-2 md:w-[806px]">
@@ -171,8 +168,6 @@ const SearchResults: React.FC = () => {
             </div>
           ));
     
-          // Insert the related search elements after the second web page element.
-          // No need to use optional chaining on webPageElements.splice since webPageElements is guaranteed to be an array here.
           webPageElements.splice(2, 0, 
             <div key="related-searches-section" className="related-searches-block">
               <div className='border-t-[1px] border-dark-border w-full'/>
