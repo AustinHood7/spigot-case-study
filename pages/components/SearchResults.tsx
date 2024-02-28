@@ -81,6 +81,7 @@ const SearchResults: React.FC = () => {
         videos: { value: data.videos?.value ?? [] },
         images: { value: data.images?.value ?? [] },
       };
+      
 
       setResults(normalizedData);
       setError('');
@@ -121,18 +122,18 @@ const SearchResults: React.FC = () => {
       let dataExists = false;
       switch (key) {
         case 'WebPages':
-          dataExists = results?.webPages?.value?.length > 0;
+          dataExists = (results?.webPages?.value?.length ?? 0) > 0;
           break;
         case 'RelatedSearches':
-          dataExists = results?.relatedSearches?.value?.length > 0;
+          dataExists = (results?.relatedSearches?.value?.length ?? 0) > 0;
           break;
         case 'Videos':
-          dataExists = results?.videos?.value?.length > 0;
+          dataExists = (results?.videos?.value?.length ?? 0) > 0;
           break;
         case 'Images':
-          dataExists = results?.images?.value?.length > 0;
+          dataExists = (results?.images?.value?.length ?? 0) > 0;
           break;
-      }
+      }      
   
       if (dataExists) {
         return (
