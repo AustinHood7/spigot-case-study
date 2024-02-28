@@ -73,7 +73,6 @@ const SearchResults: React.FC = () => {
       if (!response.ok) throw new Error('Failed to fetch');
       const data: BingSearchResponse = await response.json();
 
-      // Initialize segments to empty arrays if they are undefined in the response
       const normalizedData = {
         ...data,
         webPages: { value: data.webPages?.value ?? [] },
@@ -96,13 +95,11 @@ const SearchResults: React.FC = () => {
 
 
   const handlePrevPage = () => {
-    // Calculate the new offset for the previous page
     const newOffset = Math.max(0, offset - count);
     fetchResults(newOffset);
   };
 
   const handleNextPage = () => {
-    // Calculate the new offset for the next page
     const newOffset = offset + count;
     fetchResults(newOffset);
   };
@@ -113,8 +110,8 @@ const SearchResults: React.FC = () => {
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault(); // Prevent the default form submit action
-    handleSearchClick(); // Call the function to perform the search
+    event.preventDefault(); 
+    handleSearchClick(); 
   };
 
   const renderTabs = () => {
@@ -239,22 +236,24 @@ const SearchResults: React.FC = () => {
       <div className="content flex flex-col gap-8 mt-10 items-center">
         {renderContent()}
       </div>
+      {results && (
       <div className="flex justify-center w-full mt-4 items-center">
-        <button 
-          onClick={handlePrevPage} 
-          disabled={offset === 0} 
-          className=' text-dark-text px-4 py-2 rounded-lg flex items-center justify-center'
+        <button
+          onClick={handlePrevPage}
+          disabled={offset === 0}
+          className='text-dark-text px-4 py-2 rounded-lg flex items-center justify-center'
         >
           <MdOutlineKeyboardArrowLeft className="mr-2" size={30}/>
         </button>
         <div className='text-dark-text'>{`Page ${Math.floor(offset / count) + 1}`}</div>
-        <button 
-          onClick={handleNextPage} 
-          className=' text-dark-text px-4 py-2 rounded-lg flex items-center justify-center'
+        <button
+          onClick={handleNextPage}
+          className='text-dark-text px-4 py-2 rounded-lg flex items-center justify-center'
         >
           <MdOutlineKeyboardArrowRight className="ml-2" size={30}/>
         </button>
       </div>
+    )}
     </div>
   );
 };
