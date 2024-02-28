@@ -52,6 +52,7 @@ bun dev
 
 - **S3 Bucket**: For the client, with @edge Lambda for server-side rendering and CloudFront distribution.
 - **AWS Fargate**: Docker containers orchestrated by ECS, load balancing, and service configuration. Cost-effective at scale but requires significant setup.
+- Decided to go with Vercel to avoid the significant setup required the leverage the benefits of server rendering
 
 #### Vercel
 
@@ -69,7 +70,31 @@ bun dev
 
 - Performance-focused and auto-scales with demand, reducing server costs.
 - Rich library ecosystem and decoupling from the client.
+- Went with express.js because I do not have a golang environment set up
 
+- #### C# Serverless
+
+- Performance-focused and auto-scales with demand, reducing server costs.
+- Integrates with existing C# services if previously used
+- Performs proficiency in C#
+- Went with express.js because of the required environment setup and integration with AWS sdk
+
+### Speed analytics
+
+#### Google lighthouse
+- Provides very detailed reports of performance and best practices
+- Very flexible
+- Free
+- Requires a bit of setup
+- Went with Vercel because of ease of integration and I do not need exremely detailed analytics for now
+  
+#### Vercel Speed Insights 
+- Vercel Speed Insights utilizes data from real users to provide insights, offering a real-world perspective on performance
+- For projects hosted on Vercel, it offers a tightly integrated experience, making it easy to access and monitor performance data directly from the Vercel dashboard.
+- Automatic Monitoring: It tracks the performance of your deployments over time, alerting you to any significant changes or regressions.
+- Performance Budgets: It allows setting performance budgets to ensure your site meets certain performance criteria, helping to maintain an optimal user experience.
+- More user focused
+  
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a pull request.
