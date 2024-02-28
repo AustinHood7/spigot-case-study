@@ -211,7 +211,7 @@ const SearchResults: React.FC = () => {
   };
 
   return (
-    <div className='bg-dark px-[20%] font-dmsans w-full h-full flex flex-col items-center gap-8 pt-[15%] pb-10'>
+    <div className='bg-dark px-[20%] font-dmsans w-full h-full flex flex-col items-center gap-8 pt-[15%] pb-10 text-dark-text'>
       <div className='absolute top-0 left-0 pl-4 pt-4'>Powered by <span className='font-bold'>Microsoft Bing</span></div>
       <h1 className='text-6xl font-bold mb-4 text-dark-text'>Spigot Search</h1>
       <div className="relative bg-dark rounded-full border-[1px] border-dark-border md:w-[50%]">
