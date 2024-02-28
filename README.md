@@ -14,27 +14,71 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# Project Overview
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## What We're Aiming For
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- **Strong SEO**: Generate the most clicks with semantic HTML and server-rendered clients.
+- **Interactivity**: Accept user input and provide responsive results.
+- **Scalability**: Ready for the future addition of features with minimal effort.
+- **Cost-Effectiveness**: Delivering value while maintaining a low overhead.
+- **Case Study Consideration**: The project doesn't need to generate revenue at this stage.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Architecture
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Client
 
-## Learn More
+#### Astro with React
 
-To learn more about Next.js, take a look at the following resources:
+- Minifies the JavaScript payload sent to the client, improving SEO and web metrics.
+- Partial hydration system only activates components that require interactivity.
+- Static parts of the page remain untouched, reducing the need for JavaScript.
+- Out-of-the-box performance is excellent, without the overhead of a traditional SPA.
+- However, it's less suited for dynamic updates based on user input, so we opted for Next.js instead.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#### Next.js
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Balances the need for SEO optimization with dynamic interactivity.
+- Server-Side Rendering (SSR) improves accessibility to search engines and secures API route handling.
+- The framework focuses on optimizations like code splitting and image optimization, increasing engagement rates and clicks.
 
-## Deploy on Vercel
+#### Vanilla JavaScript
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- For simplicity and control over the project, where frameworks are not necessary.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Hosting
+
+#### AWS
+
+- **S3 Bucket**: For the client, with @edge Lambda for server-side rendering and CloudFront distribution.
+- **AWS Fargate**: Docker containers orchestrated by ECS, load balancing, and service configuration. Cost-effective at scale but requires significant setup.
+
+#### Vercel
+
+- Deploy Next.js with zero configuration, SSR, and edge Lambda.
+- Convenient and free until traffic scales or monetization is necessary.
+
+### Server
+
+#### Express.js Backend
+
+- Integrated within Next.js for SSR and development simplicity.
+- Uniform TypeScript usage across the client and server.
+
+#### Golang Serverless
+
+- Performance-focused and auto-scales with demand, reducing server costs.
+- Rich library ecosystem and decoupling from the client.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a pull request.
+
+## License
+
+This project is open-sourced under the [MIT license](LICENSE).
+
+## Contact
+
+- For more information, reach out to us at [contact@example.com](mailto:contact@example.com).
+
